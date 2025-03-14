@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 export function generateToken(email) {
   return jwt.sign({ email }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "168h",
   });
 }
 

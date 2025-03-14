@@ -61,8 +61,10 @@ class usersController {
         return res.status(400).json({ error: "El usuario ya existe" });
 
       const data = await usersModel.createUser(req.body);
+      console.log(data);
       res.status(201).json(data);
     } catch (error) {
+      console.error("data: ", req.body, "Error: ", error);
       res.status(500).json({
         success: false,
         message: "Error al crear usuario",
@@ -88,11 +90,13 @@ class usersController {
 
       const token = generateToken(email);
 
-      return res.status(200).json({ message: "Bienvenido usuario", token });
+      console.log("Usuario: ", email, "pass:", password, "token:", token);
+      return res.status(200).json({ user: userExist[0], token });
     } catch (error) {
+      console.log(error);
       res.status(500).json({
         success: false,
-        message: "Error al crear usuario",
+        message: "Error al registrar usuario",
         error: error.message,
       });
     }
@@ -102,10 +106,12 @@ class usersController {
     try {
       const { id } = req.params;
       const data = await usersModel.updateUser(id, req.body);
+      console.log("Usuario actualizado", req.body);
       return res
         .status(200)
         .json({ message: "Usuario actualizado", data: data });
     } catch (error) {
+      console.error(error, req.body);
       res.status(500).json({
         success: false,
         message: "Error al actualizar usuario",
