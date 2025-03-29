@@ -96,7 +96,7 @@ class usersController {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Error al registrar usuario",
+        message: "Error al iniciar sesión usuario",
         error: error.message,
       });
     }
